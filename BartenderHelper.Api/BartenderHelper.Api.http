@@ -1,0 +1,6 @@
+@BartenderHelper.Api_HostAddress = http://localhost:5257
+
+GET {{BartenderHelper.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

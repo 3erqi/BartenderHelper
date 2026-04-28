@@ -1,0 +1,14 @@
+# .NET
+bin/
+obj/
+*.user
+appsettings.Development.json
+
+# Angular (added later)
+node_modules/
+dist/
+
+# SQLite database file
+*.db
+*.db-shm
+*.db-wal
