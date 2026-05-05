@@ -7,7 +7,6 @@ public class Cocktail
     public string Description { get; set; } = string.Empty;
     public string Instructions { get; set; } = string.Empty;
     public string GlassType { get; set; } = string.Empty;
-    public string Category { get; set; } = string.Empty;
     public string? ImageUrl { get; set; }
     public bool IsCanonical { get; set; }
     public int? OwnerId { get; set; }

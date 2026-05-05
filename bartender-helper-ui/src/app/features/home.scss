@@ -1,0 +1,43 @@
+.hero {
+  text-align: center;
+  padding: 32px 0 24px;
+
+  h1 { font-size: 28px; margin-bottom: 24px; }
+}
+
+.search-field {
+  width: 100%;
+  max-width: 560px;
+}
+
+.categories {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+
+  button.active {
+    background-color: #3f51b5;
+    color: white;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.hint {
+  text-align: center;
+  color: #888;
+  margin-top: 48px;
+}
+
+.fab {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+}

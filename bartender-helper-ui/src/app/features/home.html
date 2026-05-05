@@ -1,0 +1,26 @@
+<div class="hero">
+  <h1>What are you making tonight?</h1>
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Search cocktails or ingredients...</mat-label>
+    <input matInput (input)="onSearch($event)" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+
+@if (loading()) {
+  <p class="hint">Loading...</p>
+} @else if (cocktails().length === 0) {
+  <p class="hint">No cocktails found.</p>
+} @else {
+  <div class="grid">
+    @for (cocktail of cocktails(); track cocktail.id) {
+      <app-cocktail-card [cocktail]="cocktail" />
+    }
+  </div>
+}
+
+@if (authService.isLoggedIn()) {
+  <a mat-fab routerLink="/add" class="fab" aria-label="Add cocktail">
+    <mat-icon>add</mat-icon>
+  </a>
+}
