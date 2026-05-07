@@ -87,7 +87,7 @@ public class CocktailsController : ControllerBase
             {
                 Name = i.Name,
                 Amount = i.Amount,
-                Unit = i.Unit
+                Unit = i.Unit ?? string.Empty
             }).ToList()
         };
 
@@ -122,7 +122,7 @@ public class CocktailsController : ControllerBase
         {
             Name = i.Name,
             Amount = i.Amount,
-            Unit = i.Unit
+            Unit = i.Unit ?? string.Empty
         }).ToList();
 
         _db.SaveChanges();

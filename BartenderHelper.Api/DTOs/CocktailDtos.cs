@@ -1,12 +1,5 @@
 namespace BartenderHelper.Api.DTOs;
 
-public record IngredientDto(
-    int Id,
-    string Name,
-    string Amount,
-    string Unit
-);
-
 public record CocktailSummaryDto(
     int Id,
     string Name,
@@ -39,8 +32,16 @@ public record SaveCocktailRequest(
     List<IngredientRequest> Ingredients
 );
 
+public record IngredientDto(
+    int Id,
+    string Name,
+    string Amount,
+    string? Unit
+);
+
 public record IngredientRequest(
     string Name,
     string Amount,
-    string Unit
+    string? Unit
 );
+

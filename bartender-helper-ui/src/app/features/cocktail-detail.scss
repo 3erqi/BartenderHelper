@@ -1,0 +1,62 @@
+.detail {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.back-btn {
+  margin-bottom: 16px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 8px 0 4px;
+}
+
+.glass {
+  color: gray;
+  margin: 0 0 16px;
+}
+
+.description {
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+}
+
+h2 {
+  margin-top: 24px;
+}
+
+.ingredients {
+  padding-left: 20px;
+  line-height: 2;
+  list-style: none;
+}
+
+.instructions {
+  line-height: 1.8;
+}
+
+.owner {
+  margin-top: 24px;
+  color: gray;
+  font-size: 0.9rem;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.instructions {
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.detail {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+

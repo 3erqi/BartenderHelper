@@ -1,0 +1,38 @@
+.form-page {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  h1 { margin: 0; }
+}
+
+.full { width: 100%; }
+
+h2 { font-size: 18px; margin: 24px 0 12px; }
+
+.ingredient-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.amount-field { width: 90px; flex-shrink: 0; }
+.unit-field   { width: 110px; flex-shrink: 0; }
+.name-field   { flex: 1; }
+
+.submit-row {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.error {
+  color: #f44336;
+  margin-top: 12px;
+}

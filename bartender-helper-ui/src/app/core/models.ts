@@ -30,7 +30,13 @@ export interface Ingredient {
   id: number;
   name: string;
   amount: string;
-  unit: string;
+  unit: string | null;
+}
+
+export interface IngredientRequest {
+  name: string;
+  amount: string;
+  unit: string | null;
 }
 
 export interface SaveCocktailRequest {
@@ -40,10 +46,4 @@ export interface SaveCocktailRequest {
   glassType: string;
   imageUrl: string | null;
   ingredients: IngredientRequest[];
-}
-
-export interface IngredientRequest {
-  name: string;
-  amount: string;
-  unit: string;
 }

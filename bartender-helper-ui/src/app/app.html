@@ -1,12 +1,22 @@
 <mat-toolbar color="primary">
   <span routerLink="/home" style="cursor:pointer">🍹 Bartender Helper</span>
   <span class="spacer"></span>
+
   @if (authService.isLoggedIn()) {
-    <span class="username">{{ authService.username() }}</span>
-    <button mat-button (click)="authService.logout()">Logout</button>
+    <button mat-button [matMenuTriggerFor]="userMenu" class="user-btn">
+      <span class="avatar-wrapper">
+        <img [src]="authService.avatarUrl()!" class="avatar" alt="avatar" />
+      </span>
+      <span class="username">{{ authService.username() }}</span>
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item (click)="authService.logout()">
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+    </mat-menu>
   } @else {
     <button mat-button routerLink="/login">Login</button>
-    <button mat-button routerLink="/register">Register</button>
   }
 </mat-toolbar>
 
