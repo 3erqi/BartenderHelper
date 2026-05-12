@@ -1,4 +1,6 @@
-.spacer { flex: 1; }
+.spacer {
+  flex: 1;
+}
 
 .username {
   margin-left: 4px;
@@ -6,8 +8,11 @@
   font-size: 14px;
 }
 
-
-main { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
+main {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
 
 .user-btn {
   display: flex;
@@ -28,9 +33,8 @@ main { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
 }
 
 .avatar {
-  width: 125%;
-  height: 125%;
+  width: 32px;
+  height: 32px;
   object-fit: cover;
+  border-radius: 50%;
 }
-
-

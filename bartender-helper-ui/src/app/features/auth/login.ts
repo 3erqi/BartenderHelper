@@ -8,10 +8,7 @@ import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-login',
-  imports: [
-    RouterLink, ReactiveFormsModule,
-    MatFormFieldModule, MatInputModule, MatButtonModule
-  ],
+  imports: [RouterLink, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })

@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using System.Security.Claims;
 using BartenderHelper.Api.Data;
 using BartenderHelper.Api.DTOs;
@@ -24,6 +25,38 @@ public class CocktailsController : ControllerBase
     {
         var query = _db.Cocktails
             .Include(c => c.Owner)
+            .Where(c => c.IsCanonical)
+            .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            var term = search.ToLower();
+            query = query.Where(c =>
+                c.Name.ToLower().Contains(term) ||
+                c.Description.ToLower().Contains(term) ||
+                c.Ingredients.Any(i => i.Name.ToLower().Contains(term)));
+        }
+
+        var results = query
+            .OrderBy(c => c.Name)
+            .Select(c => new CocktailSummaryDto(
+                c.Id, c.Name, c.Description,
+                c.GlassType, c.IsCanonical, c.OwnerId,
+                c.Owner != null ? c.Owner.Username : null))
+            .ToList();
+
+        return Ok(results);
+    }
+
+    [Authorize]
+    [HttpGet("mine")]
+    public IActionResult GetMine([FromQuery] string? search)
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+        var query = _db.Cocktails
+            .Include(c => c.Owner)
+            .Where(c => c.OwnerId == userId)
             .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(search))

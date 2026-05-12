@@ -8,7 +8,7 @@ describe('CocktailDetail', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CocktailDetail],
+      imports: [CocktailDetail]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CocktailDetail);

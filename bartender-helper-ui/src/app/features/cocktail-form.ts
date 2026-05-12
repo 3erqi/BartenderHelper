@@ -10,8 +10,12 @@ import { CocktailService } from '../core/cocktail';
 @Component({
   selector: 'app-cocktail-form',
   imports: [
-    RouterLink, ReactiveFormsModule,
-    MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule
+    RouterLink,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule
   ],
   templateUrl: './cocktail-form.html',
   styleUrl: './cocktail-form.scss'
@@ -31,18 +35,18 @@ export class CocktailForm implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      name:         ['', Validators.required],
-      description:  ['', Validators.required],
+      name: ['', Validators.required],
+      description: ['', Validators.required],
       instructions: ['', Validators.required],
-      glassType:    ['', Validators.required],
-      imageUrl:     [''],
-      ingredients:  this.fb.array([this.newIngredient()])
+      glassType: ['', Validators.required],
+      imageUrl: [''],
+      ingredients: this.fb.array([this.newIngredient()])
     });
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.editId = Number(id);
-      this.cocktailService.getById(this.editId).subscribe(c => {
+      this.cocktailService.getById(this.editId).subscribe((c) => {
         this.form.patchValue({
           name: c.name,
           description: c.description,
@@ -50,13 +54,18 @@ export class CocktailForm implements OnInit {
           glassType: c.glassType,
           imageUrl: c.imageUrl ?? ''
         });
-        this.form.setControl('ingredients', this.fb.array(
-          c.ingredients.map(i => this.fb.group({
-            name:   [i.name,   Validators.required],
-            amount: [i.amount, Validators.required],
-            unit:   [i.unit]
-          }))
-        ));
+        this.form.setControl(
+          'ingredients',
+          this.fb.array(
+            c.ingredients.map((i) =>
+              this.fb.group({
+                name: [i.name, Validators.required],
+                amount: [i.amount, Validators.required],
+                unit: [i.unit]
+              })
+            )
+          )
+        );
       });
     }
   }
@@ -67,9 +76,9 @@ export class CocktailForm implements OnInit {
 
   newIngredient(): FormGroup {
     return this.fb.group({
-      name:   ['', Validators.required],
+      name: ['', Validators.required],
       amount: ['', Validators.required],
-      unit:   ['']
+      unit: ['']
     });
   }
 
@@ -104,10 +113,9 @@ export class CocktailForm implements OnInit {
         const id = this.editId ?? (res as number);
         this.router.navigate(['/cocktail', id]);
       },
-      error: err => {
-        const msg = typeof err.error === 'string'
-          ? err.error
-          : err.error?.title ?? 'Something went wrong.';
+      error: (err) => {
+        const msg =
+          typeof err.error === 'string' ? err.error : (err.error?.title ?? 'Something went wrong.');
         this.error.set(msg);
         this.saving.set(false);
       }

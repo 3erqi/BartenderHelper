@@ -3,6 +3,8 @@ using BartenderHelper.Api.DTOs;
 using BartenderHelper.Api.Models;
 using BartenderHelper.Api.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace BartenderHelper.Api.Controllers;
 
@@ -50,4 +52,67 @@ public class AuthController : ControllerBase
         var token = _tokenService.CreateToken(user);
         return Ok(new AuthResponse(user.Username, token));
     }
+
+    [Authorize]
+    [HttpPut("password")]
+    public IActionResult ChangePassword(ChangePasswordRequest request)
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var user = _db.Users.Find(userId);
+        if (user is null) return NotFound();
+
+        if (!BCrypt.Net.BCrypt.Verify(request.CurrentPassword, user.PasswordHash))
+            return BadRequest("Current password is incorrect.");
+
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
+        _db.SaveChanges();
+        return NoContent();
+    }
+
+    [Authorize]
+    [HttpPut("username")]
+    public IActionResult ChangeUsername(ChangeUsernameRequest request)
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+        if (_db.Users.Any(u => u.Username == request.NewUsername && u.Id != userId))
+            return BadRequest("Username is already taken.");
+
+        var user = _db.Users.Find(userId);
+        if (user is null) return NotFound();
+
+        user.Username = request.NewUsername;
+        _db.SaveChanges();
+
+        var token = _tokenService.CreateToken(user);
+        return Ok(new AuthResponse(user.Username, token));
+    }
+
+    [Authorize]
+    [HttpPut("email")]
+    public IActionResult ChangeEmail(ChangeEmailRequest request)
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+        if (_db.Users.Any(u => u.Email == request.NewEmail && u.Id != userId))
+            return BadRequest("Email is already in use.");
+
+        var user = _db.Users.Find(userId);
+        if (user is null) return NotFound();
+
+        user.Email = request.NewEmail;
+        _db.SaveChanges();
+        return NoContent();
+    }
+
+    [Authorize]
+    [HttpGet("me")]
+    public IActionResult GetMe()
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var user = _db.Users.Find(userId);
+        if (user is null) return NotFound();
+        return Ok(new { user.Username, user.Email });
+    }
+
 }

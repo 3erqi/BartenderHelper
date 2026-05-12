@@ -1,5 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators
+} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -14,10 +21,7 @@ function passwordsMatch(control: AbstractControl): ValidationErrors | null {
 
 @Component({
   selector: 'app-register',
-  imports: [
-    RouterLink, ReactiveFormsModule,
-    MatFormFieldModule, MatInputModule, MatButtonModule
-  ],
+  imports: [RouterLink, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
   templateUrl: './register.html',
   styleUrl: './register.scss'
 })
@@ -31,12 +35,15 @@ export class Register {
     private authService: AuthService,
     private router: Router
   ) {
-    this.form = this.fb.group({
-      username:        ['', [Validators.required, Validators.minLength(3)]],
-      email:           ['', [Validators.required, Validators.email]],
-      password:        ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
-    }, { validators: passwordsMatch });
+    this.form = this.fb.group(
+      {
+        username: ['', [Validators.required, Validators.minLength(3)]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required]
+      },
+      { validators: passwordsMatch }
+    );
   }
 
   get passwordMismatch(): boolean {
@@ -51,7 +58,7 @@ export class Register {
     const { username, email, password } = this.form.value;
     this.authService.register(username, email, password).subscribe({
       next: () => this.router.navigate(['/home']),
-      error: err => {
+      error: (err) => {
         this.error.set(err.error ?? 'Registration failed.');
         this.loading.set(false);
       }

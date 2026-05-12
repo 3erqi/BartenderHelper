@@ -28,4 +28,10 @@ export class CocktailService {
   delete(id: number) {
     return this.http.delete(`/api/cocktails/${id}`);
   }
+
+  getMyCocktails(search: string = '') {
+    let params = new HttpParams();
+    if (search) params = params.set('search', search);
+    return this.http.get<CocktailSummary[]>('/api/cocktails/mine', { params });
+  }
 }

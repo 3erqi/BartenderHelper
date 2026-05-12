@@ -1,0 +1,150 @@
+<div class="settings-page">
+  <button mat-icon-button (click)="goBack()" aria-label="Go back">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <div class="account-card">
+    <img [src]="authService.avatarUrl()!" class="account-avatar" alt="avatar" />
+    <div class="account-info">
+      <span class="account-name">{{ authService.username() }}</span>
+      <span class="account-email">{{ email() }}</span>
+    </div>
+  </div>
+
+  <mat-divider />
+
+  <div class="settings-list">
+    <div class="settings-row">
+      <div class="row-label">
+        <span class="row-title">Profile Picture</span>
+        <span class="row-value">Upload a custom avatar</span>
+      </div>
+      <input
+        #fileInput
+        type="file"
+        accept="image/png, image/jpeg, image/webp"
+        (change)="onFileSelected($event)"
+        hidden
+      />
+      <button mat-button color="primary" (click)="fileInput.click()">Edit</button>
+    </div>
+
+    @if (imageChangedEvent) {
+    <div class="cropper-overlay">
+      <div class="cropper-box">
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="1"
+          [roundCropper]="true"
+          [transform]="transform()"
+          format="png"
+          output="base64"
+          (imageCropped)="onImageCropped($event)"
+        />
+        <div class="zoom-controls">
+          <button mat-icon-button (click)="zoomOut()">
+            <mat-icon>zoom_out</mat-icon>
+          </button>
+          <span>Zoom</span>
+          <button mat-icon-button (click)="zoomIn()">
+            <mat-icon>zoom_in</mat-icon>
+          </button>
+        </div>
+        <div class="cropper-actions">
+          <button mat-button (click)="cancelCrop()">Cancel</button>
+          <button mat-flat-button color="primary" (click)="saveAvatar()">Save</button>
+        </div>
+      </div>
+    </div>
+    }
+
+    <mat-divider />
+
+    <div class="settings-row">
+      <div class="row-label">
+        <span class="row-title">Password</span>
+        <span class="row-value">••••••••</span>
+      </div>
+      <button mat-button color="primary" (click)="showPasswordForm.set(!showPasswordForm())">
+        {{ showPasswordForm() ? 'Cancel' : 'Edit' }}
+      </button>
+    </div>
+    @if (showPasswordForm()) {
+    <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="inline-form">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Current Password</mat-label>
+        <input matInput type="password" formControlName="currentPassword" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>New Password</mat-label>
+        <input matInput type="password" formControlName="newPassword" />
+      </mat-form-field>
+      @if (passwordError()) {
+      <p class="error">{{ passwordError() }}</p>
+      }
+      <button mat-flat-button color="primary" type="submit" [disabled]="passwordForm.invalid">
+        Save
+      </button>
+    </form>
+    } @if (passwordSuccess()) {
+    <p class="success">{{ passwordSuccess() }}</p>
+    }
+
+    <mat-divider />
+
+    <div class="settings-row">
+      <div class="row-label">
+        <span class="row-title">Username</span>
+        <span class="row-value">{{ authService.username() }}</span>
+      </div>
+      <button mat-button color="primary" (click)="showUsernameForm.set(!showUsernameForm())">
+        {{ showUsernameForm() ? 'Cancel' : 'Edit' }}
+      </button>
+    </div>
+    @if (showUsernameForm()) {
+    <form [formGroup]="usernameForm" (ngSubmit)="changeUsername()" class="inline-form">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>New Username</mat-label>
+        <input matInput formControlName="newUsername" />
+      </mat-form-field>
+      @if (usernameError()) {
+      <p class="error">{{ usernameError() }}</p>
+      }
+      <button mat-flat-button color="primary" type="submit" [disabled]="usernameForm.invalid">
+        Save
+      </button>
+    </form>
+    } @if (usernameSuccess()) {
+    <p class="success">{{ usernameSuccess() }}</p>
+    }
+
+    <mat-divider />
+
+    <div class="settings-row">
+      <div class="row-label">
+        <span class="row-title">Email</span>
+        <span class="row-value">{{ email() }}</span>
+      </div>
+      <button mat-button color="primary" (click)="showEmailForm.set(!showEmailForm())">
+        {{ showEmailForm() ? 'Cancel' : 'Edit' }}
+      </button>
+    </div>
+    @if (showEmailForm()) {
+    <form [formGroup]="emailForm" (ngSubmit)="changeEmail()" class="inline-form">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>New Email</mat-label>
+        <input matInput type="email" formControlName="newEmail" />
+      </mat-form-field>
+      @if (emailError()) {
+      <p class="error">{{ emailError() }}</p>
+      }
+      <button mat-flat-button color="primary" type="submit" [disabled]="emailForm.invalid">
+        Save
+      </button>
+    </form>
+    } @if (emailSuccess()) {
+    <p class="success">{{ emailSuccess() }}</p>
+    }
+  </div>
+</div>

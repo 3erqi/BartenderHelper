@@ -7,7 +7,6 @@
   </div>
 
   <form [formGroup]="form" (ngSubmit)="submit()">
-
     <mat-form-field appearance="outline" class="full">
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" />
@@ -37,28 +36,32 @@
 
     <div formArrayName="ingredients">
       @for (ing of ingredients.controls; track $index) {
-        <div [formGroupName]="$index" class="ingredient-row">
-          <mat-form-field appearance="outline" class="amount-field">
-            <mat-label>Amount</mat-label>
-            <input matInput formControlName="amount" />
-          </mat-form-field>
+      <div [formGroupName]="$index" class="ingredient-row">
+        <mat-form-field appearance="outline" class="amount-field">
+          <mat-label>Amount</mat-label>
+          <input matInput formControlName="amount" />
+        </mat-form-field>
 
-          <mat-form-field appearance="outline" floatLabel="always" class="unit-field">
-            <mat-label>Unit</mat-label>
-            <input matInput formControlName="unit" placeholder="oz, ml, dash..." />
-          </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always" class="unit-field">
+          <mat-label>Unit</mat-label>
+          <input matInput formControlName="unit" placeholder="oz, ml, dash..." />
+        </mat-form-field>
 
-          <mat-form-field appearance="outline" class="name-field">
-            <mat-label>Ingredient</mat-label>
-            <input matInput formControlName="name" />
-          </mat-form-field>
+        <mat-form-field appearance="outline" class="name-field">
+          <mat-label>Ingredient</mat-label>
+          <input matInput formControlName="name" />
+        </mat-form-field>
 
-          <button mat-icon-button type="button" color="warn"
-            (click)="removeIngredient($index)"
-            [disabled]="ingredients.length === 1">
-            <mat-icon>remove_circle_outline</mat-icon>
-          </button>
-        </div>
+        <button
+          mat-icon-button
+          type="button"
+          color="warn"
+          (click)="removeIngredient($index)"
+          [disabled]="ingredients.length === 1"
+        >
+          <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+      </div>
       }
     </div>
 
@@ -67,15 +70,13 @@
     </button>
 
     @if (error()) {
-      <p class="error">{{ error() }}</p>
+    <p class="error">{{ error() }}</p>
     }
 
     <div class="submit-row">
-      <button mat-flat-button color="primary" type="submit"
-        [disabled]="form.invalid || saving()">
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid || saving()">
         {{ saving() ? 'Saving...' : (editId ? 'Save Changes' : 'Create Cocktail') }}
       </button>
     </div>
-
   </form>
 </div>

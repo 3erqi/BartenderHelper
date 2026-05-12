@@ -8,7 +8,7 @@ describe('CocktailForm', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CocktailForm],
+      imports: [CocktailForm]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CocktailForm);

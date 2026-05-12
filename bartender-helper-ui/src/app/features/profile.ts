@@ -12,7 +12,7 @@ import { AuthService } from '../core/auth.service';
 import { CocktailSummary } from '../core/models';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-profile',
   imports: [
     RouterLink,
     MatFormFieldModule,
@@ -21,10 +21,10 @@ import { CocktailSummary } from '../core/models';
     MatIconModule,
     CocktailCard
   ],
-  templateUrl: './home.html',
-  styleUrl: './home.scss'
+  templateUrl: './profile.html',
+  styleUrl: './profile.scss'
 })
-export class Home implements OnInit, OnDestroy {
+export class Profile implements OnInit, OnDestroy {
   cocktails = signal<CocktailSummary[]>([]);
   loading = signal(false);
 
@@ -33,7 +33,7 @@ export class Home implements OnInit, OnDestroy {
 
   constructor(
     private cocktailService: CocktailService,
-    protected authService: AuthService
+    protected authService: AuthService // <-- protected so the HTML template can use it
   ) {}
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class Home implements OnInit, OnDestroy {
         distinctUntilChanged(),
         switchMap((term) => {
           this.loading.set(true);
-          return this.cocktailService.search(term);
+          return this.cocktailService.getMyCocktails(term); // <-- only difference from Home
         })
       )
       .subscribe((results) => {
@@ -51,7 +51,7 @@ export class Home implements OnInit, OnDestroy {
         this.loading.set(false);
       });
 
-    this.search$.next('');
+    this.search$.next(''); // trigger an initial load with empty search
   }
 
   onSearch(event: Event) {

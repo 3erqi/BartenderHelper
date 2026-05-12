@@ -1,0 +1,34 @@
+<div class="profile-header">
+  <img [src]="authService.avatarUrl()!" class="profile-avatar" alt="avatar" />
+  <div class="username-row">
+    <h1>{{ authService.username() }}</h1>
+    <a mat-icon-button routerLink="/settings" aria-label="Settings">
+      <mat-icon>settings</mat-icon>
+    </a>
+  </div>
+  <p class="subtitle">My cocktails</p>
+</div>
+
+<div class="search-row">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Search your cocktails...</mat-label>
+    <input matInput (input)="onSearch($event)" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+
+@if (loading()) {
+<p class="hint">Loading...</p>
+} @else if (cocktails().length === 0) {
+<div class="empty">
+  <mat-icon class="empty-icon">local_bar</mat-icon>
+  <p>You haven't created any cocktails yet.</p>
+  <a mat-raised-button color="primary" routerLink="/add">Create your first one</a>
+</div>
+} @else {
+<div class="grid">
+  @for (cocktail of cocktails(); track cocktail.id) {
+  <app-cocktail-card [cocktail]="cocktail" />
+  }
+</div>
+}

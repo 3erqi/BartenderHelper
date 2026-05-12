@@ -1,36 +1,32 @@
 @if (cocktail(); as c) {
-  <div class="detail">
-    <a mat-button routerLink="/home" class="back-btn">
-      <mat-icon>arrow_back</mat-icon> Back
+<div class="detail">
+  <a mat-button routerLink="/home" class="back-btn"> <mat-icon>arrow_back</mat-icon> Back </a>
+
+  <h1>{{ c.name }}</h1>
+  <p class="glass">{{ c.glassType }} glass</p>
+  <p class="description">{{ c.description }}</p>
+
+  <h2>Ingredients</h2>
+  <ul class="ingredients">
+    @for (ing of c.ingredients; track ing.id) {
+    <li>{{ ing.amount }}{{ ing.unit ? ' ' + ing.unit : '' }} {{ ing.name }}</li>
+    }
+  </ul>
+
+  <h2>Instructions</h2>
+  <p class="instructions">{{ c.instructions }}</p>
+
+  @if (!c.isCanonical && c.ownerUsername) {
+  <p class="owner">Added by {{ c.ownerUsername }}</p>
+  } @if (isOwner) {
+  <div class="actions">
+    <a mat-raised-button color="primary" [routerLink]="['/edit', c.id]">
+      <mat-icon>edit</mat-icon> Edit
     </a>
-
-    <h1>{{ c.name }}</h1>
-    <p class="glass">{{ c.glassType }} glass</p>
-    <p class="description">{{ c.description }}</p>
-
-    <h2>Ingredients</h2>
-    <ul class="ingredients">
-      @for (ing of c.ingredients; track ing.id) {
-        <li>{{ ing.amount }}{{ ing.unit ? ' ' + ing.unit : '' }} {{ ing.name }}</li>
-      }
-    </ul>
-
-    <h2>Instructions</h2>
-    <p class="instructions">{{ c.instructions }}</p>
-
-    @if (!c.isCanonical && c.ownerUsername) {
-      <p class="owner">Added by {{ c.ownerUsername }}</p>
-    }
-
-    @if (isOwner) {
-      <div class="actions">
-        <a mat-raised-button color="primary" [routerLink]="['/edit', c.id]">
-          <mat-icon>edit</mat-icon> Edit
-        </a>
-        <button mat-raised-button color="warn" (click)="delete()">
-          <mat-icon>delete</mat-icon> Delete
-        </button>
-      </div>
-    }
+    <button mat-raised-button color="warn" (click)="delete()">
+      <mat-icon>delete</mat-icon> Delete
+    </button>
   </div>
+  }
+</div>
 }

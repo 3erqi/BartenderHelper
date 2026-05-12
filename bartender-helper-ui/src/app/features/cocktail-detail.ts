@@ -24,7 +24,7 @@ export class CocktailDetail implements OnInit {
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.cocktailService.getById(id).subscribe(c => this.cocktail.set(c));
+    this.cocktailService.getById(id).subscribe((c) => this.cocktail.set(c));
   }
 
   get isOwner(): boolean {

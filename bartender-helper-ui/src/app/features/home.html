@@ -8,19 +8,17 @@
 </div>
 
 @if (loading()) {
-  <p class="hint">Loading...</p>
+<p class="hint">Loading...</p>
 } @else if (cocktails().length === 0) {
-  <p class="hint">No cocktails found.</p>
+<p class="hint">No cocktails found.</p>
 } @else {
-  <div class="grid">
-    @for (cocktail of cocktails(); track cocktail.id) {
-      <app-cocktail-card [cocktail]="cocktail" />
-    }
-  </div>
-}
-
-@if (authService.isLoggedIn()) {
-  <a mat-fab routerLink="/add" class="fab" aria-label="Add cocktail">
-    <mat-icon>add</mat-icon>
-  </a>
+<div class="grid">
+  @for (cocktail of cocktails(); track cocktail.id) {
+  <app-cocktail-card [cocktail]="cocktail" />
+  }
+</div>
+} @if (authService.isLoggedIn()) {
+<a mat-fab routerLink="/add" class="fab" aria-label="Add cocktail">
+  <mat-icon>add</mat-icon>
+</a>
 }
