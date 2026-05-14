@@ -11,6 +11,7 @@ export interface CocktailSummary {
   isCanonical: boolean;
   ownerId: number | null;
   ownerUsername: string | null;
+  imageUrl: string | null;
 }
 
 export interface CocktailDetail {

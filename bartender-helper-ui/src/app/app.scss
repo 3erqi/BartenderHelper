@@ -38,3 +38,14 @@ main {
   object-fit: cover;
   border-radius: 50%;
 }
+
+mat-toolbar {
+  background-color: #1e1e1e !important;
+}
+
+.toolbar-logo {
+  height: 48px;
+  width: 48px;
+  cursor: pointer;
+  object-fit: contain;
+}

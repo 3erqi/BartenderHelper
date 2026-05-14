@@ -7,7 +7,8 @@ public record CocktailSummaryDto(
     string GlassType,
     bool IsCanonical,
     int? OwnerId,
-    string? OwnerUsername
+    string? OwnerUsername,
+    string? ImageUrl
 );
 
 public record CocktailDetailDto(

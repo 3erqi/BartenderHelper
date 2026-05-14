@@ -1,9 +1,40 @@
 .card {
   cursor: pointer;
   height: 100%;
+  background-color: #1e1e1e !important;
+  border: 1px solid var(--mat-sys-primary) !important;
   transition: box-shadow 0.2s;
   &:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  }
+}
+
+.card-image {
+  padding: 12px 12px 0;
+}
+
+.cocktail-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.cocktail-img-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  background: #2a2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    opacity: 0.3;
   }
 }
 

@@ -34,4 +34,10 @@ export class CocktailService {
     if (search) params = params.set('search', search);
     return this.http.get<CocktailSummary[]>('/api/cocktails/mine', { params });
   }
+
+  uploadImage(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<{ url: string }>('/api/images/upload', formData);
+  }
 }

@@ -1,15 +1,26 @@
 import { Component, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
-import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 import { CocktailSummary } from '../core/models';
+import { CocktailDialog } from './cocktail-dialog';
 
 @Component({
   selector: 'app-cocktail-card',
-  imports: [RouterLink, MatCardModule, MatChipsModule],
+  imports: [MatCardModule, MatIconModule],
   templateUrl: './cocktail-card.html',
   styleUrl: './cocktail-card.scss'
 })
 export class CocktailCard {
   cocktail = input.required<CocktailSummary>();
+
+  constructor(private dialog: MatDialog) {}
+
+  openDialog() {
+    this.dialog.open(CocktailDialog, {
+      data: { id: this.cocktail().id },
+      width: '520px',
+      maxHeight: '90vh'
+    });
+  }
 }

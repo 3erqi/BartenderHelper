@@ -42,7 +42,8 @@ public class CocktailsController : ControllerBase
             .Select(c => new CocktailSummaryDto(
                 c.Id, c.Name, c.Description,
                 c.GlassType, c.IsCanonical, c.OwnerId,
-                c.Owner != null ? c.Owner.Username : null))
+                c.Owner != null ? c.Owner.Username : null,
+                c.ImageUrl))
             .ToList();
 
         return Ok(results);
@@ -73,7 +74,8 @@ public class CocktailsController : ControllerBase
             .Select(c => new CocktailSummaryDto(
                 c.Id, c.Name, c.Description,
                 c.GlassType, c.IsCanonical, c.OwnerId,
-                c.Owner != null ? c.Owner.Username : null))
+                c.Owner != null ? c.Owner.Username : null,
+                c.ImageUrl))
             .ToList();
 
         return Ok(results);

@@ -51,3 +51,34 @@ h2 {
   color: #f44336;
   margin-top: 12px;
 }
+
+.image-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.image-preview {
+  width: 100%;
+  max-height: 240px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.instruction-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.step-number {
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 20px;
+}
+
+.step-field {
+  flex: 1;
+}

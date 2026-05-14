@@ -1,4 +1,13 @@
-<mat-card [routerLink]="['/cocktail', cocktail().id]" class="card">
+<mat-card class="card" (click)="openDialog()">
+  <div class="card-image">
+    @if (cocktail().imageUrl) {
+    <img [src]="cocktail().imageUrl!" alt="{{ cocktail().name }}" class="cocktail-img" />
+    } @else {
+    <div class="cocktail-img-placeholder">
+      <mat-icon>local_bar</mat-icon>
+    </div>
+    }
+  </div>
   <mat-card-header>
     <mat-card-title>{{ cocktail().name }}</mat-card-title>
     <mat-card-subtitle>{{ cocktail().glassType }}</mat-card-subtitle>

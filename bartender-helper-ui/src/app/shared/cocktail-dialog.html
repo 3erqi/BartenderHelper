@@ -1,0 +1,33 @@
+@if (cocktail(); as c) { @if (c.imageUrl) {
+<img [src]="c.imageUrl" class="dialog-image" alt="{{ c.name }}" />
+}
+
+<h2 mat-dialog-title>{{ c.name }}</h2>
+
+<mat-dialog-content>
+  <p class="glass">{{ c.glassType }} glass</p>
+  <p class="description">{{ c.description }}</p>
+
+  <h3>Ingredients</h3>
+  <p class="instructions">{{ c.instructions }}</p>
+
+  <h3>Instructions</h3>
+  <ol class="instructions">
+    @for (step of c.instructions.split('\n'); track $index) { @if (step.trim()) {
+    <li>{{ step.trim() }}</li>
+    } }
+  </ol>
+
+  @if (!c.isCanonical && c.ownerUsername) {
+  <p class="owner">Added by {{ c.ownerUsername }}</p>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  @if (isOwner) {
+  <button mat-button color="primary" (click)="edit()"><mat-icon>edit</mat-icon> Edit</button>
+  <button mat-button color="warn" (click)="delete()"><mat-icon>delete</mat-icon> Delete</button>
+  }
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
+}

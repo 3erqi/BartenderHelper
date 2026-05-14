@@ -22,15 +22,49 @@
       <input matInput formControlName="glassType" placeholder="e.g. Rocks, Coupe, Highball" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full">
-      <mat-label>Instructions</mat-label>
-      <textarea matInput formControlName="instructions" rows="4"></textarea>
-    </mat-form-field>
+    <h2>Instructions</h2>
+    <div formArrayName="instructionSteps">
+      @for (step of instructionSteps.controls; track $index) {
+      <div [formGroupName]="$index" class="instruction-row">
+        <span class="step-number">{{ $index + 1 }}.</span>
+        <mat-form-field appearance="outline" class="step-field">
+          <mat-label>Step {{ $index + 1 }}</mat-label>
+          <input matInput formControlName="step" />
+        </mat-form-field>
+        <button
+          mat-icon-button
+          type="button"
+          color="warn"
+          (click)="removeInstruction($index)"
+          [disabled]="instructionSteps.length === 1"
+        >
+          <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+      </div>
+      }
+    </div>
+    <button mat-stroked-button type="button" (click)="addInstruction()">
+      <mat-icon>add</mat-icon> Add Step
+    </button>
 
-    <mat-form-field appearance="outline" class="full">
-      <mat-label>Image URL (optional)</mat-label>
-      <input matInput formControlName="imageUrl" />
-    </mat-form-field>
+    <div class="image-upload">
+      <input
+        #imgInput
+        type="file"
+        accept="image/png, image/jpeg, image/webp"
+        (change)="onImageSelected($event)"
+        hidden
+      />
+
+      @if (imagePreview()) {
+      <img [src]="imagePreview()!" class="image-preview" alt="Cocktail image" />
+      }
+
+      <button mat-stroked-button type="button" (click)="imgInput.click()" [disabled]="uploading()">
+        <mat-icon>upload</mat-icon>
+        {{ uploading() ? 'Uploading...' : (imagePreview() ? 'Change Image' : 'Upload Image') }}
+      </button>
+    </div>
 
     <h2>Ingredients</h2>
 
